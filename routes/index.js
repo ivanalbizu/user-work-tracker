@@ -1,9 +1,7 @@
 const express = require('express')
 const app = express()
-const router = express.Router()
-const path = require('path')
-
 const user = require('./user')
+const login = require('./login')
 
 
 app.get('/', (req, res) => {
@@ -13,6 +11,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', user)
-
+app.use('/login', login)
 
 module.exports = app

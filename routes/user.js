@@ -1,10 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const file = './data/ivangonzalez/2020-04.json';
 const fspromises = require('../helpers/fspromises');
 
+const getDate = today => today.toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
 
 router.get('/', async (req, res) => {
+  const email = req.cookies.userEmail;
+  const today = getDate(new Date);
+  const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;
   try {
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
@@ -17,6 +20,9 @@ router.get('/', async (req, res) => {
   }
 })
 router.get('/dom', async (req, res) => {
+  const email = req.cookies.userEmail;
+  const today = getDate(new Date);
+  const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;
   try {
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
@@ -28,9 +34,15 @@ router.get('/dom', async (req, res) => {
 
 
 router.post('/start', async (req, res) => {
+  const email = req.cookies.userEmail;
+  const file = `./data/${(email)}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
+  console.log('file :>> ', file);
+
   try {
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
+
+    data.tracking = {};
 
     data.tracking[req.body.date] = [];
     data.tracking[req.body.date].push({
@@ -46,6 +58,9 @@ router.post('/start', async (req, res) => {
 })
 
 router.post('/play', async (req, res) => {
+  const email = req.cookies.userEmail;
+  const file = `./data/${(email)}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
+
   try {
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
@@ -64,6 +79,9 @@ router.post('/play', async (req, res) => {
 })
 
 router.post('/pause', async (req, res) => {
+  const email = req.cookies.userEmail;
+  const file = `./data/${(email)}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
+
   try {
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
