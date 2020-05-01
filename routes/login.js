@@ -10,7 +10,7 @@ const jwtExpirySeconds = 24 * 60 * 60 //86400 seconds (1 dia)
 
 const view = (req, res) => {
 	res.render('login', {
-		head_title: 'Login en la APP',
+		head_title: 'Login APP',
 	})
 }
 

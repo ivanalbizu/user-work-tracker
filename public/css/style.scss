@@ -148,15 +148,22 @@ input, button {
     height: 80px;
     border-bottom: 1px solid #ddd;
     border-left: 3px solid transparent;
-    &:hover,
-    &--active {
-      border-left: 3px solid var(--color-orange);
+    transition: all .3s ease;
+    svg {
       transition: all .3s ease;
-      svg {
-        transition: all .3s ease;
-        stroke: var(--color-orange);
-      }
     }
+  }
+}
+.stats .nav-stats {
+  border-left: 3px solid var(--color-orange);
+  svg {
+    stroke: var(--color-orange);
+  }
+}
+.user .nav-user {
+  border-left: 3px solid var(--color-orange);
+  svg {
+    stroke: var(--color-orange);
   }
 }
 .main {

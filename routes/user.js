@@ -12,7 +12,8 @@ router.get('/', async (req, res) => {
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
     res.render('user', {
-      head_title: 'Usuario',
+      head_title: data.name,
+      page_title: 'Tracking',
       data
     })
   } catch(error) {

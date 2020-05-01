@@ -2,10 +2,11 @@ extends base
 
 block content
   .wrapper
+    - var page = 'user'
     include includes/header.pug
     include includes/aside.pug
 
-    main.main
+    main#user.main
       section.actions
         h2.title-section= data.name
         button.btn.btn--track#start-day(type='button')

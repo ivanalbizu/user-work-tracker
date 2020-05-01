@@ -177,15 +177,26 @@ input, button {
   height: 80px;
   border-bottom: 1px solid #ddd;
   border-left: 3px solid transparent;
+  transition: all .3s ease;
 }
 
-.nav__item:hover, .nav__item--active {
+.nav__item svg {
+  transition: all .3s ease;
+}
+
+.stats .nav-stats {
   border-left: 3px solid var(--color-orange);
-  transition: all .3s ease;
 }
 
-.nav__item:hover svg, .nav__item--active svg {
-  transition: all .3s ease;
+.stats .nav-stats svg {
+  stroke: var(--color-orange);
+}
+
+.user .nav-user {
+  border-left: 3px solid var(--color-orange);
+}
+
+.user .nav-user svg {
   stroke: var(--color-orange);
 }
 

@@ -24,7 +24,6 @@ const timeToMinutes = time => {
 }
 
 const submit = document.getElementById('submit');
-const loginForm = document.getElementById('login-form');
 const wrapperBtns = document.getElementById('wrapper-btns');
 const startDayBtn = document.getElementById('start-day');
 const playBtn = document.getElementById('play');
@@ -97,15 +96,11 @@ const updateBtnTrackDOM = async () => {
   }
 }
 
-updateBtnTrackDOM();
+if (document.getElementById('user')) updateBtnTrackDOM();
 
 // Not re-send form on refresh page
 if (window.history.replaceState) window.history.replaceState(null, null, window.location.href);
 
-const loginFormSubmit = () => {
-  event.preventDefault();
-  console.log('submited');
-}
 
 const startTrack = async () => {
   const data = {
@@ -135,6 +130,3 @@ const pauseTrack = async () => {
   await fetchQuery('http://localhost:8080/user/pause', 'POST', data);
   updateBtnTrackDOM();
 }
-
-
-//loginForm?.addEventListener('submit', loginFormSubmit);

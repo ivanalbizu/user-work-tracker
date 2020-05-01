@@ -1,0 +1,27 @@
+extends base
+
+block content
+  .wrapper
+    - var page = 'stats'
+    include includes/header.pug
+    include includes/aside.pug
+
+    main#stats.main
+      section
+        h2.title-section= data.name
+
+      section.details
+        p= data2
+        //
+          p= data.id
+          p= data.username
+          p= data.email
+        each val, key in data.tracking
+          ul(data-date=key).date
+            li.date-bar
+              span.date-bar-title= key
+              ul.date-track
+                each item in val
+                  li(data-type=item.type data-start=item.time_start data-end=item.time_end)
+                    span.time-start= item.time_start 
+                    span.time-end= item.time_end
