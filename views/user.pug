@@ -1,0 +1,37 @@
+extends base
+
+block content
+  .wrapper
+    include includes/header.pug
+    include includes/aside.pug
+
+    main.main
+      section.actions
+        h2.title-section= data.name
+        button.btn.btn--track#start-day(type='button')
+          svg(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' fill='none' stroke='#212121' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+            polygon(points='5 3 19 12 5 21 5 3')
+        button.btn.btn--track#play(type='button')
+          svg(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' fill='none' stroke='#212121' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+            polygon(points='5 3 19 12 5 21 5 3')
+        button.btn.btn--track#pause(type='button')
+          svg(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' fill='none' stroke='#212121' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
+            rect(x='6' y='4' width='4' height='16')
+            rect(x='14' y='4' width='4' height='16')
+      section#wrapper-btns.wrapper-btns
+
+      section.details
+        p= data2
+        //
+          p= data.id
+          p= data.username
+          p= data.email
+        each val, key in data.tracking
+          ul(data-date=key).date
+            li.date-bar
+              span.date-bar-title= key
+              ul.date-track
+                each item in val
+                  li(data-type=item.type data-start=item.time_start data-end=item.time_end)
+                    span.time-start= item.time_start 
+                    span.time-end= item.time_end

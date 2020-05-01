@@ -1,0 +1,81 @@
+{
+  "id": 1,
+  "name": "Iván González Albizu",
+  "username": "ivan.albizu",
+  "email": "ivan.albizu@gmail.com",
+  "role": [
+    "ADMIN",
+    "USER"
+  ],
+  "config": {
+    "key": "value",
+    "journal": {
+      "L": {
+        "start": "08:00",
+        "end": "17:30"
+      },
+      "M": {
+        "start": "08:00",
+        "end": "17:30"
+      },
+      "X": {
+        "start": "08:00",
+        "end": "17:30"
+      },
+      "J": {
+        "start": "08:00",
+        "end": "17:30"
+      },
+      "V": {
+        "start": "08:00",
+        "end": "17:30"
+      }
+    }
+  },
+  "tracking": {
+    "24/04/2020": [
+      {
+        "type": "work",
+        "time_start": "08:00",
+        "time_end": "10:00"
+      },
+      {
+        "type": "break",
+        "time_start": "10:00",
+        "time_end": "10:30"
+      },
+      {
+        "type": "work",
+        "time_start": "10:30",
+        "time_end": "14:00"
+      },
+      {
+        "type": "break",
+        "time_start": "14:00",
+        "time_end": "15:00"
+      },
+      {
+        "type": "work",
+        "time_start": "15:00",
+        "time_end": "17:30"
+      }
+    ],
+    "25/04/2020": [
+      {
+        "type": "work",
+        "time_start": "08:00",
+        "time_end": "11:00"
+      },
+      {
+        "type": "break",
+        "time_start": "11:00",
+        "time_end": "14:00"
+      },
+      {
+        "type": "work",
+        "time_start": "14:00",
+        "time_end": "17:30"
+      }
+    ]
+  }
+}
