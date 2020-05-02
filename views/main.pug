@@ -1,5 +1,19 @@
 extends base
 
 block content
+  .wrapper
+    - var page = 'home'
+    include includes/header.pug
+    include includes/aside.pug
+    
+    main#home.main
+      section.home
+        h2.title-section Home
 
-  div Página principal
+        div.cards
+          article.card
+            h3 Estadísticas
+          article.card
+            h3 Tracking
+          article.card
+            h3 Configuración

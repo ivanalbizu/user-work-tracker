@@ -32,6 +32,7 @@ router.get('/', async (req, res) => {
     console.log('error get page:>> ', error);
   }
 })
+
 router.get('/dom', async (req, res) => {
   const email = req.cookies.userEmail;
   const today = getDate(new Date);
