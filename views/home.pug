@@ -1,0 +1,34 @@
+extends base
+
+block content
+  .wrapper
+    - var page = 'home'
+    include includes/header.pug
+    include includes/aside.pug
+    
+    main#home.main
+      section.home
+        //h2.title-section Home
+
+        div.cards
+          article.card
+            header.card__header
+              h3 Estadísticas
+            main.card__body
+              p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias corrupti debitis eaque cupiditate est officia amet aspernatur ea minima distinctio
+            footer.card__footer
+              a.btn.btn--see(href='/stats') Ir a estadísticas
+          article.card
+            header.card__header
+              h3 Tracking
+            main.card__body
+              p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias corrupti debitis
+            footer.card__footer
+              a.btn.btn--see(href='/user') Ir a tracker
+          article.card
+            header.card__header
+              h3 Configuración
+            main.card__body
+              p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias corrupti debitis eaque cupiditate est officia amet aspernatur ea minima distinctio
+            footer.card__footer
+              a.btn.btn--see(href='/config') Ir a configuración

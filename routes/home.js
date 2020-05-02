@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-  res.render('main', {
+  res.render('home', {
     head_title: 'Home user Tracking',
     page_title: 'Home',
   })

@@ -18,6 +18,11 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
 }
 
+a, a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: var(--color-orange);
+}
+
 body {
   font-family: 'Nunito', sans-serif;
   background-color: var(--color-gray-light);
@@ -107,6 +112,22 @@ input, button {
   justify-content: center;
   align-content: center;
   padding: 4px;
+}
+
+.btn--see {
+  display: inline-flex;
+  justify-content: center;
+  width: 188px;
+  max-width: 100%;
+  border-radius: 0;
+  border-top: 3px solid var(--color-orange);
+  transition: border .15s ease-in-out, background-color .15s ease-in-out, color .15s ease-in-out;
+}
+
+.btn--see:hover {
+  background-color: var(--color-orange);
+  color: #fff;
+  transition: border .15s ease-in-out, background-color .15s ease-in-out, color .15s ease-in-out;
 }
 
 .title-page {
@@ -292,12 +313,36 @@ li[data-end] .time-end {
 }
 
 .cards .card {
+  display: flex;
+  flex-direction: column;
   padding: 20px 30px;
   background-color: #fff;
   margin-bottom: 30px;
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
-  width: 31.33%;
   border-top: 4px solid var(--color-orange);
+  width: 100%;
+}
+
+.cards .card__header {
+  margin-bottom: 30px;
+}
+
+.cards .card__body {
+  margin-bottom: 30px;
+}
+
+.cards .card__footer {
+  margin-top: auto;
+}
+
+@media (min-width: 978px) {
+  .cards .card {
+    width: 31.33%;
+  }
+  .cards .card__footer {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @keyframes pulse-color {
