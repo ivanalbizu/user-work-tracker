@@ -22,7 +22,17 @@ const writePromise = (file, data) => {
   });
 }
 
+// returns a promise which resolves true if file exists
+const checkFileExists = file => {
+  return new Promise((resolve, reject) => {
+    fs.access(file, fs.F_OK, error => {
+      resolve(!error);
+    });
+  });
+}
+
 module.exports = {
+  checkFileExists,
   readPromise,
   writePromise
 }

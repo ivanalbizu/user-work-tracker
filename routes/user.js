@@ -4,11 +4,23 @@ const fspromises = require('../helpers/fspromises');
 
 const getDate = today => today.toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
 
+const startNewMonth = async (file, email) => {
+  const exist = await fspromises.checkFileExists(file);
+  if (!exist) {
+    const read = await fspromises.readPromise(`./data/${email}/user-template.json`);
+    const data = JSON.parse(read);
+    await fspromises.writePromise(file, JSON.stringify(data, null, 2));
+  }
+}
+
 router.get('/', async (req, res) => {
   const email = req.cookies.userEmail;
   const today = getDate(new Date);
   const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;
+  
   try {
+    await startNewMonth(file, email);
+
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
     res.render('user', {
@@ -24,6 +36,7 @@ router.get('/dom', async (req, res) => {
   const email = req.cookies.userEmail;
   const today = getDate(new Date);
   const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;
+  
   try {
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
@@ -36,14 +49,11 @@ router.get('/dom', async (req, res) => {
 
 router.post('/start', async (req, res) => {
   const email = req.cookies.userEmail;
-  const file = `./data/${(email)}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
-  console.log('file :>> ', file);
+  const file = `./data/${email}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
 
   try {
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
-
-    data.tracking = {};
 
     data.tracking[req.body.date] = [];
     data.tracking[req.body.date].push({
@@ -60,7 +70,7 @@ router.post('/start', async (req, res) => {
 
 router.post('/play', async (req, res) => {
   const email = req.cookies.userEmail;
-  const file = `./data/${(email)}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
+  const file = `./data/${email}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
 
   try {
     const read = await fspromises.readPromise(file);
@@ -81,7 +91,7 @@ router.post('/play', async (req, res) => {
 
 router.post('/pause', async (req, res) => {
   const email = req.cookies.userEmail;
-  const file = `./data/${(email)}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
+  const file = `./data/${email}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
 
   try {
     const read = await fspromises.readPromise(file);

@@ -1,0 +1,36 @@
+{
+  "id": 1,
+  "name": "Iván González Albizu",
+  "username": "ivan.albizu",
+  "email": "ivan.albizu@gmail.com",
+  "role": [
+    "ADMIN",
+    "USER"
+  ],
+  "config": {
+    "key": "value",
+    "journal": {
+      "L": {
+        "start": "08:00",
+        "end": "17:30"
+      },
+      "M": {
+        "start": "08:00",
+        "end": "17:30"
+      },
+      "X": {
+        "start": "08:00",
+        "end": "17:30"
+      },
+      "J": {
+        "start": "08:00",
+        "end": "17:30"
+      },
+      "V": {
+        "start": "08:00",
+        "end": "17:30"
+      }
+    }
+  },
+  "tracking": {}
+}
