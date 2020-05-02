@@ -2,25 +2,25 @@ extends base
 
 block content
   .wrapper
-    - var page = 'home'
+    - var page = 'config'
     include includes/header.pug
     include includes/aside.pug
     
-    main#home.main
-      section.home
-        //h2.title-section Home
+    main#config.main
+      section.config
+        h2.title-section Personalización
 
         div.cards
           article.card
             header.card__header
-              h3 Estadísticas
+              h3 Notificaciones
             main.card__body
               p Visualiza como fue tu tracking durante los días anteriores, eligiendo el mes que quieras visualizar
             footer.card__footer
               a.btn.btn--see(href='/stats') Ir a estadísticas
           article.card
             header.card__header
-              h3 Tracking
+              h3 Jornada laboral
             main.card__body
               p Inicia el seguimiento de tus tiempos trabajados y las pausas que vas tomando durante tu jornada laboral
             footer.card__footer

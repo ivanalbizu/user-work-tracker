@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap');
-
 :root {
   --color-orange: #DD6E42;
   --color-cake: #E8DAB2;
@@ -21,7 +19,7 @@ a,a:hover,a:focus,a:active {
   color: var(--color-orange);
 }
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito', Helvetica, sans-serif;
   background-color: var(--color-gray-light);
   color: #202121;
   display: flex;
@@ -113,10 +111,12 @@ input, button {
   }
 }
 .title-page {
+  font-size: 2em;
   font-weight: 300;
   margin-right: auto;
 }
 .title-section {
+  font-size: 1.6em;
   font-weight: 400;
   margin-bottom: 30px;
 }
@@ -145,7 +145,7 @@ input, button {
   display: flex;
   align-items: center;
   width: 100%;
-  height: 80px;
+  height: 100%;
   padding: 0 40px;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
@@ -159,21 +159,49 @@ input, button {
   border-right: 1px solid #ccc;
   box-shadow: 0px 3px 3px rgba(0,0,0,.2);
 }
+.notification {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 16px;
+  font-size: 10px;
+  background-color: var(--color-orange);
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+}
+.active {
+  svg {
+    stroke: var(--color-orange);
+  }
+  .notification {
+    display: inline-flex;
+  }
+}
 .nav {
+  width: 100%;
   &__item {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    height: 100%;
+    max-height: 80px;
     border-bottom: 1px solid #ddd;
     border-left: 3px solid transparent;
-    transition: all .3s ease;
-    svg {
-      transition: all .3s ease;
-    }
     &:focus {
       outline: none;
+    }
+    &:hover {
+      svg {
+        transition: stroke .3 ease;
+        stroke: var(--color-orange);
+      }
+    }
+    svg {
+      transition: stroke .2s ease;
     }
   }
 }
@@ -190,6 +218,12 @@ input, button {
   }
 }
 .user .nav-user {
+  border-left: 3px solid var(--color-orange);
+  svg {
+    stroke: var(--color-orange);
+  }
+}
+.config .nav-config {
   border-left: 3px solid var(--color-orange);
   svg {
     stroke: var(--color-orange);
@@ -295,5 +329,59 @@ li[data-end] .time-end {
   }
   100% {
     color: initial;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: 50px 50px 1fr;
+    grid-template-areas:
+          "ham header"
+          "aside aside"
+          "main main";
+  }
+  .header {
+    padding: 0 20px;
+  }
+  .aside {
+    border: 0;
+  }
+  .main {
+    padding: 30px 15px;
+  }
+  .nav {
+    width: 100%;
+    &__item {
+      display: inline-flex;
+      width: 25%;
+      height: 50px;
+      border-color: #fff;
+      border-width: 0 0 3px 0;
+    }
+  }
+  .home .nav-home {
+    border-left: 0;
+    border-bottom: 3px solid var(--color-orange);
+  }
+  .stats .nav-stats {
+    border-left: 0;
+    border-bottom: 3px solid var(--color-orange);
+  }
+  .user .nav-user {
+    border-left: 0;
+    border-bottom: 3px solid var(--color-orange);
+  }
+  .config .nav-config {
+    border-left: 0;
+    border-bottom: 3px solid var(--color-orange);
+  }
+  .title-page {
+    font-size: 1.5em;
+  }
+  .title-section {
+    font-size: 1.2em;
+    font-weight: 400;
+    margin-bottom: 30px;
   }
 }
