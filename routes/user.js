@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/dom', async (req, res) => {
+router.get('/tracks', async (req, res) => {
   const email = req.cookies.userEmail;
   const today = getDate(new Date);
   const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;

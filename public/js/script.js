@@ -66,18 +66,31 @@ dateTrack.forEach(ul => {
 })
 
 const updateDayTracker = () => {
-  const ul = document.querySelector(`[data-date="${getDate(today)}"] .date-track`);
+  let ulToday = document.querySelector(`[data-date="${getDate(today)}"]`);
+  if (!ulToday) {
+    ulToday = document.createElement('ul');  
+    ulToday.classList.add('date');
+    ulToday.setAttribute('data-date', `${getDate(today)}`);
+    ulToday.innerHTML = `
+      <li class="date-bar">
+        <span class="date-bar-title">${getDate(today)}</span>
+        <ul class="date-track"></ul>
+      </li>
+    `;
+    document.querySelector('.details').appendChild(ulToday);
+  }
+  const ulDateTrack = ulToday.querySelector(`.date-track`);
   const li = document.createElement('li');  
   const span = document.createElement('span');
   span.innerHTML = getTime(today);
 
   li.appendChild(span);
 
-  ul.insertBefore(li, ul.lastChild);
+  ulDateTrack.insertBefore(li, ulDateTrack.lastChild);
 }
 
 const updateBtnTrackDOM = async () => {
-  const data = await fetchQuery(`${BASE_URL}user/dom`, 'GET', {});
+  const data = await fetchQuery(`${BASE_URL}user/tracks`, 'GET', {});
   const date = data.tracking[getDate(today)];
 
   const btns = document.querySelectorAll('.btn--track');
@@ -116,6 +129,7 @@ const startTrack = async () => {
     time: getTime(new Date())
   };
 
+  updateDayTracker();
   await fetchQuery(`${BASE_URL}user/start`, 'POST', data);
   updateBtnTrackDOM();
 }
@@ -125,7 +139,8 @@ const playTrack = async () => {
     date: getDate(today),
     time: getTime(new Date())
   };
-  //updateDayTracker();
+
+  updateDayTracker();
   await fetchQuery(`${BASE_URL}user/play`, 'POST', data);
   updateBtnTrackDOM();
 }
@@ -134,7 +149,8 @@ const pauseTrack = async () => {
     date: getDate(today),
     time: getTime(new Date())
   };
-  //updateDayTracker();
+
+  updateDayTracker();
   await fetchQuery(`${BASE_URL}user/pause`, 'POST', data);
   updateBtnTrackDOM();
 }
