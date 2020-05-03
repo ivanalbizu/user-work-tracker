@@ -26,12 +26,14 @@ block content
           p= data.id
           p= data.username
           p= data.email
+        - var date = (new Date()).toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
         each val, key in data.tracking
-          ul(data-date=key).date
-            li.date-bar
-              span.date-bar-title= key
-              ul.date-track
-                each item in val
-                  li(data-type=item.type data-start=item.time_start data-end=item.time_end)
-                    span.time-start= item.time_start 
-                    span.time-end= item.time_end
+          if(key == date)
+            ul(data-date=key).date
+              li.date-bar
+                span.date-bar-title= key
+                ul.date-track
+                  each item in val
+                    li(data-type=item.type data-start=item.time_start data-end=item.time_end)
+                      span.time-start= item.time_start 
+                      span.time-end= item.time_end
