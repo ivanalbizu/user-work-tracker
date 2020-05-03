@@ -23,8 +23,7 @@ const timeToMinutes = time => {
   return (+a[0]) * 60 + (+a[1]);
 }
 
-const submit = document.getElementById('submit');
-const wrapperBtns = document.getElementById('wrapper-btns');
+
 const startDayBtn = document.getElementById('start-day');
 const playBtn = document.getElementById('play');
 const pauseBtn = document.getElementById('pause');
@@ -37,6 +36,11 @@ const getTime = today => today.toLocaleTimeString([], {hour: '2-digit', minute:'
 
 console.log(today.toLocaleString(window.navigator.language, {weekday: 'long'}));
 const totalDayTime = timeToMinutes('17:30') - timeToMinutes('08:00');
+
+
+// Not re-send form on refresh page
+if (window.history.replaceState) window.history.replaceState(null, null, window.location.href);
+
 
 dateTrack.forEach(ul => {
   let start, end;
@@ -73,33 +77,36 @@ const updateDayTracker = () => {
 
 const updateBtnTrackDOM = async () => {
   const data = await fetchQuery('http://localhost:8080/user/dom', 'GET', {});
-  const date = data?.tracking[getDate(today)];
+  const date = data.tracking[getDate(today)];
 
-  startDayBtn.style.display = 'none';
+  const btns = document.querySelectorAll('.btn--track');
+  btns.forEach(btn => {
+    btn.style.display = 'none';
+    btn.classList.add('btn--disable');
+  });
   startDayBtn.removeEventListener('click', startTrack);
-  playBtn.style.display = 'none';
   playBtn.removeEventListener('click', playTrack);
-  pauseBtn.style.display = 'none';
   pauseBtn.removeEventListener('click', pauseTrack);
+
   if(!date) {
     startDayBtn.style.display = 'flex';
+    startDayBtn.classList.remove('btn--disable');
     startDayBtn.addEventListener('click', startTrack);
   } else {
-    const item = data?.tracking[getDate(today)][date.length-1]?.time_end;
+    playBtn.style.display = 'flex';
+    pauseBtn.style.display = 'flex';
+    const item = data.tracking[getDate(today)][date.length-1].time_end;
     if(item) {
-      playBtn.style.display = 'flex';
+      playBtn.classList.remove('btn--disable');
       playBtn.addEventListener('click', playTrack);
     } else {
-      pauseBtn.style.display = 'flex';
+      pauseBtn.classList.remove('btn--disable');
       pauseBtn.addEventListener('click', pauseTrack);
     }
   }
 }
 
 if (document.getElementById('user')) updateBtnTrackDOM();
-
-// Not re-send form on refresh page
-if (window.history.replaceState) window.history.replaceState(null, null, window.location.href);
 
 
 const startTrack = async () => {

@@ -107,10 +107,15 @@ input, button {
 }
 
 .btn--track {
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   align-content: center;
+  margin-right: 5px;
   padding: 4px;
+}
+
+.btn--track svg {
+  stroke: var(--color-orange);
 }
 
 .btn--see {
@@ -127,6 +132,14 @@ input, button {
   background-color: var(--color-orange);
   color: #fff;
   transition: border .15s ease-in-out, background-color .15s ease-in-out, color .15s ease-in-out;
+}
+
+.btn--disable {
+  cursor: not-allowed;
+}
+
+.btn--disable svg {
+  stroke: #242424;
 }
 
 .title-page {
@@ -195,6 +208,10 @@ input, button {
   box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
+.alert {
+  display: flex;
+}
+
 .notification {
   display: none;
   justify-content: center;
@@ -226,8 +243,7 @@ input, button {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
-  max-height: 80px;
+  height: 80px;
   border-bottom: 1px solid #ddd;
   border-left: 3px solid transparent;
 }
@@ -293,6 +309,7 @@ li {
 }
 
 .wrapper-btns {
+  display: flex;
   margin-bottom: 30px;
 }
 
@@ -411,9 +428,6 @@ li[data-end] .time-end {
   }
   .main {
     padding: 30px 15px;
-  }
-  .nav {
-    width: 100%;
   }
   .nav__item {
     display: inline-flex;
