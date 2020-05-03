@@ -29,6 +29,7 @@ const playBtn = document.getElementById('play');
 const pauseBtn = document.getElementById('pause');
 const dateTrack = document.querySelectorAll('.date-track');
 
+const BASE_URL = 'http://localhost:8080/';
 const today = new Date();
 const getDate = today => today.toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
 const getTime = today => today.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -76,7 +77,7 @@ const updateDayTracker = () => {
 }
 
 const updateBtnTrackDOM = async () => {
-  const data = await fetchQuery('http://localhost:8080/user/dom', 'GET', {});
+  const data = await fetchQuery(`${BASE_URL}user/dom`, 'GET', {});
   const date = data.tracking[getDate(today)];
 
   const btns = document.querySelectorAll('.btn--track');
@@ -115,7 +116,7 @@ const startTrack = async () => {
     time: getTime(new Date())
   };
 
-  await fetchQuery('http://localhost:8080/user/start', 'POST', data);
+  await fetchQuery(`${BASE_URL}user/start`, 'POST', data);
   updateBtnTrackDOM();
 }
 
@@ -125,7 +126,7 @@ const playTrack = async () => {
     time: getTime(new Date())
   };
   //updateDayTracker();
-  await fetchQuery('http://localhost:8080/user/play', 'POST', data);
+  await fetchQuery(`${BASE_URL}user/play`, 'POST', data);
   updateBtnTrackDOM();
 }
 const pauseTrack = async () => {
@@ -134,6 +135,6 @@ const pauseTrack = async () => {
     time: getTime(new Date())
   };
   //updateDayTracker();
-  await fetchQuery('http://localhost:8080/user/pause', 'POST', data);
+  await fetchQuery(`${BASE_URL}user/pause`, 'POST', data);
   updateBtnTrackDOM();
 }

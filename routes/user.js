@@ -50,7 +50,8 @@ router.get('/dom', async (req, res) => {
 
 router.post('/start', async (req, res) => {
   const email = req.cookies.userEmail;
-  const file = `./data/${email}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
+  const today = getDate(new Date);
+  const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;
 
   try {
     const read = await fspromises.readPromise(file);
@@ -71,7 +72,8 @@ router.post('/start', async (req, res) => {
 
 router.post('/play', async (req, res) => {
   const email = req.cookies.userEmail;
-  const file = `./data/${email}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
+  const today = getDate(new Date);
+  const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;
 
   try {
     const read = await fspromises.readPromise(file);
@@ -92,7 +94,8 @@ router.post('/play', async (req, res) => {
 
 router.post('/pause', async (req, res) => {
   const email = req.cookies.userEmail;
-  const file = `./data/${email}/${(req.body.date).split('/')[2]}-${(req.body.date).split('/')[1]}.json`;
+  const today = getDate(new Date);
+  const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;
 
   try {
     const read = await fspromises.readPromise(file);
