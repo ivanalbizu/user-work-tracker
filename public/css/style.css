@@ -403,6 +403,74 @@ li[data-end] .time-end {
   }
 }
 
+.select_container {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+  color: #242424;
+  margin-bottom: 1.5em;
+}
+
+.select_container summary::after {
+  content: "\00203A";
+  font-size: 30px;
+  font-weight: 300;
+  position: absolute;
+  right: 12px;
+  top: calc(50%);
+  transform: translateY(-50%) rotate(90deg);
+  pointer-events: none;
+}
+
+.select_container[open] summary::after {
+  content: "\002039";
+}
+
+summary {
+  cursor: pointer;
+  padding: 6px 12px;
+  background: var(--color-gray-dark);
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary:hover {
+  background: #ededed;
+}
+
+.select {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #fff;
+  z-index: 1;
+}
+
+.select__option {
+  cursor: pointer;
+  padding: 6px 12px;
+}
+
+.select__option input {
+  display: none;
+}
+
+.select:hover .select__option.active {
+  background: #fff;
+  color: #454545;
+}
+
+.select__option.active,
+.select:hover .select__option.active:hover,
+.select__option:hover {
+  background: var(--color-orange);
+  color: #fff;
+}
+
 @keyframes pulse-color {
   0% {
     color: initial;

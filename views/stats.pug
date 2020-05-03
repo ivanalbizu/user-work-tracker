@@ -10,11 +10,25 @@ block content
       section
         h2.title-section= data.name
 
+      form.form
+        details#select-month.select_container
+          summary --
+          fieldset.select
+            label.select__option
+              input(checked='' type='radio' name='month' value='' disabled)
+              span Seleccione fecha
+            each val, key in dataFiles
+              label.select__option
+                input(type='radio' name='month' value=val.split('.')[0])
+                span= val.split('.')[0]
+
       section.details
         //
           p= data.id
           p= data.username
           p= data.email
+        
+
         each val, key in data.tracking
           ul(data-date=key).date
             li.date-bar

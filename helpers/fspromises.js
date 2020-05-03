@@ -31,8 +31,20 @@ const checkFileExists = file => {
   });
 }
 
+async function files(path) {
+  const filesArr = [];
+  const files = await fs.promises.readdir(path);
+  for (const file of files) {
+    if (file.match(/^\d/)) {
+      filesArr.push(file);
+    }
+  }
+  return JSON.stringify(filesArr);
+}
+
 module.exports = {
   checkFileExists,
   readPromise,
-  writePromise
+  writePromise,
+  files
 }
