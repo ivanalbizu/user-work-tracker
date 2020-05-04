@@ -34,7 +34,6 @@ router.post('/date', async (req, res) => {
   try {
     const read = await fspromises.readPromise(file);
     const data = JSON.parse(read);
-    console.log('data :>> ', data);
     res.json(data)
   } catch(error) {
     console.log('error get page:>> ', error);

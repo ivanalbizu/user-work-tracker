@@ -95,12 +95,25 @@ class detailSelect {
   }
 }
 
-
 const setAttributes = (el, attrs) => {
   for(let key in attrs) {
     el.setAttribute(key, attrs[key]);
   }
 };
+
+const timeToMinutes = time => {
+  const a = time.split(':');
+  return (+a[0]) * 60 + (+a[1]);
+}
+
+const BASE_URL = 'http://localhost:8080/';
+const today = new Date();
+const getDate = today => today.toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
+const getTime = today => today.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+
+console.log(today.toLocaleString(window.navigator.language, {weekday: 'long'}));
+const totalDayTime = timeToMinutes('17:30') - timeToMinutes('08:00');
 
 
 if (document.getElementById('select-month')) {
@@ -119,7 +132,7 @@ if (document.getElementById('select-month')) {
 const updateStatsDOM = data => {
   const details = document.querySelector('.details');
   details.innerHTML = '';
-  console.log('data :>> ', data);
+
   for (let key in data.tracking) {
     if (data.tracking.hasOwnProperty(key)) {
       const ulDate = document.createElement('ul');
@@ -127,8 +140,10 @@ const updateStatsDOM = data => {
       const liDateBar = document.createElement('li');
       const spanDateBarTitle = document.createElement('span');
 
-      ulDate.classList.add('date');
-      ulDate.setAttribute('data-date', `${key}`);
+      setAttributes(ulDate, {
+        'class': 'date',
+        'data-date': `${key}`
+      });
       
       liDateBar.classList.add('date-bar');
       
@@ -140,8 +155,11 @@ const updateStatsDOM = data => {
       
       const ulDateTrack = document.createElement('ul');
       ulDateTrack.classList.add('date-track');
-      
-      let finish;
+
+      const timeStart = data.tracking[key][0].time_start;
+      const timeEnd = data.tracking[key][data.tracking[key].length - 1].time_end ? data.tracking[key][data.tracking[key].length - 1].time_end : getTime(new Date());
+      let timeTotal = timeToMinutes(timeStart) - timeToMinutes(timeEnd);
+
       data.tracking[key].forEach(item => {
         const li = document.createElement('li');
         const spanStart = document.createElement('span');
@@ -150,7 +168,7 @@ const updateStatsDOM = data => {
           'data-type': `${item.type}`,
           'data-start': `${item.time_start}`,
           'data-end': `${item.time_end}`,
-          'style': `width:25%`
+          'style': `width: ${((timeToMinutes(item.time_start) - timeToMinutes(data.tracking[key][data.tracking[key].length - 1].time_end ? item.time_end : timeEnd))/timeTotal)*100}%`
         });
         setAttributes(spanStart, {'class': 'time-start'});
         setAttributes(spanEnd, {'class': 'time-end'});
@@ -159,11 +177,11 @@ const updateStatsDOM = data => {
         li.appendChild(spanStart);
         li.appendChild(spanEnd);
         ulDateTrack.appendChild(li);
-        finish = item.time_end;
       })
       const liFinish = document.createElement('li');
+      liFinish.style.width = '0px';
       const span = document.createElement('span');
-      span.innerHTML = finish;
+      span.innerHTML = timeEnd;
       liFinish.appendChild(span);
       ulDateTrack.appendChild(liFinish);
 
@@ -172,20 +190,6 @@ const updateStatsDOM = data => {
     }
   }
 
-  let result = `
-    <ul class="date" data-date="01/05/2020">
-      <li class="date-bar">
-        <span class="date-bar-title">01/05/2020</span>
-        <ul class="date-track">
-            <li data-type="work" data-start="08:00" data-end="15:30" style="width: 78.9474%;"><span class="time-start">08:00</span><span class="time-end">15:30</span></li>
-            <li data-type="break" data-start="15:30" data-end="19:15" style="width: 39.4737%;"><span class="time-start">15:30</span><span class="time-end">19:15</span></li>
-            <li data-type="work" data-start="19:15" data-end="20:15" style="width: 10.5263%;"><span class="time-start">19:15</span><span class="time-end">20:15</span></li>
-            <li style="width: 0px;"><span>20:15</span></li>
-        </ul>
-      </li>
-    </ul>
-  `;
-  //details.innerHTML = result;
 }
 
 
@@ -209,25 +213,11 @@ const fetchQuery = async (url, method, data) => {
   }
 }
 
-const timeToMinutes = time => {
-  const a = time.split(':');
-  return (+a[0]) * 60 + (+a[1]);
-}
-
 
 const startDayBtn = document.getElementById('start-day');
 const playBtn = document.getElementById('play');
 const pauseBtn = document.getElementById('pause');
 const dateTrack = document.querySelectorAll('.date-track');
-
-const BASE_URL = 'http://localhost:8080/';
-const today = new Date();
-const getDate = today => today.toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
-const getTime = today => today.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-
-
-console.log(today.toLocaleString(window.navigator.language, {weekday: 'long'}));
-const totalDayTime = timeToMinutes('17:30') - timeToMinutes('08:00');
 
 
 // Not re-send form on refresh page
