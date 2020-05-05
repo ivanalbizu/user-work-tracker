@@ -13,22 +13,25 @@ block content
         div.cards
           article.card
             header.card__header
-              h3 Notificaciones
+              h3 Alertas
             main.card__body
-              p Visualiza como fue tu tracking durante los días anteriores, eligiendo el mes que quieras visualizar
-            footer.card__footer
-              a.btn.btn--see(href='/stats') Ir a estadísticas
-          article.card
-            header.card__header
-              h3 Jornada laboral
-            main.card__body
-              p Inicia el seguimiento de tus tiempos trabajados y las pausas que vas tomando durante tu jornada laboral
-            footer.card__footer
-              a.btn.btn--see(href='/user') Ir a tracker
-          article.card
-            header.card__header
-              h3 Configuración
-            main.card__body
-              p Accede a tu panel de control para configurar alertas, tu jornada laboral por días, horarios de entrada y salidas, descargas...
-            footer.card__footer
-              a.btn.btn--see(href='/config') Ir a configuración
+              .form-control
+                div TO-DO jornada de verano
+              .form-control
+                label.container-input(for='inactividad')
+                  input#inactividad.input(type='checkbox' name='inactividad')
+                  | Recordar tras 60 minutos de descanso
+                  span.checkmark
+              .form-control
+                div.planning-time
+                  div.dia
+                  div.comienzo Hora inicio
+                  div.comienzo Hora fin
+                each val, key in data.config.journal
+                  div.planning-time
+                    div.dia= val.day
+                    div.comienzo
+                      input.js-time(type='time' name=`start${key}` id=`start${key}` value=val.start required)
+                    div.fin
+                      input.js-time(type='time' name=`end${key}` id=`end${key}` value=val.end required)
+              button#save-localstorage.btn.btn--see(type='button') Guardar

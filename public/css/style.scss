@@ -59,7 +59,8 @@ body {
 button {
   cursor: pointer;
 }
-input {
+input[type="text"],
+input[type="password"] {
   width: 100%;
 }
 input, button {
@@ -106,6 +107,7 @@ input, button {
     max-width: 100%;
     border-radius: 0;
     border-top: 3px solid var(--color-orange);
+    color: var(--color-orange);
     transition: border .15s ease-in-out, background-color .15s ease-in-out, color .15s ease-in-out;
     &:hover {
       background-color: var(--color-orange);
@@ -401,6 +403,62 @@ summary {
   color: #fff;
 }
 
+
+.container-input {
+  display: block;
+  position: relative;
+  padding-left: 1.25rem;
+  margin-bottom: .375rem;
+  text-align: left;
+  cursor: pointer;
+  font-size: .75rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0 !important;
+    width: 0;
+  }
+  .checkmark {
+    position: absolute;
+    top: .1rem;
+    left: 0;
+    height: .75rem;
+    width: .75rem;
+    background-color: #FFF;
+    border: 1px solid var(--color-gray-dark);
+    transition: background-color .1s ease-in-out;
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+  }
+  &:hover input ~ .checkmark {
+    background-color: rgba(var(--color-orange), .9);
+    transition: background-color .2s ease-in-out;
+  }
+  input:checked ~ .checkmark {
+    background-color: var(--color-orange);
+  }
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+}
+
+.planning {
+  &-time {
+    display: flex;
+    justify-content: space-between;
+    .dia {
+      width: 100px;
+    }
+  }
+}
 
 @keyframes pulse-color {
   0% {

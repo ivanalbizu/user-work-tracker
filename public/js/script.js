@@ -112,7 +112,7 @@ const getDate = today => today.toLocaleDateString([], {day: '2-digit', month: '2
 const getTime = today => today.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
 
-console.log(today.toLocaleString(window.navigator.language, {weekday: 'long'}));
+console.log((new Date()).getDay());
 const totalDayTime = timeToMinutes('17:30') - timeToMinutes('08:00');
 
 
@@ -335,3 +335,35 @@ const pauseTrack = async () => {
   await fetchQuery(`${BASE_URL}user/pause`, 'POST', data);
   updateBtnTrackDOM();
 }
+
+//user config
+const saveToLocalstorage = document.getElementById('save-localstorage');
+saveToLocalstorage.addEventListener('click', async () => {
+  const data = {
+    start1: document.getElementById('start1').value,
+    start2: document.getElementById('start2').value,
+    start3: document.getElementById('start3').value,
+    start4: document.getElementById('start4').value,
+    start5: document.getElementById('start5').value,
+    end1: document.getElementById('end1').value,
+    end2: document.getElementById('end2').value,
+    end3: document.getElementById('end3').value,
+    end4: document.getElementById('end4').value,
+    end5: document.getElementById('end5').value
+  };
+  console.log('data :>> ', data);
+
+  const result = await fetchQuery(`${BASE_URL}config`, 'POST', data);
+
+})
+
+document.querySelectorAll(".js-time").forEach(time => {
+  time.addEventListener("input", function(e) {
+    const time = this.value;
+    if (time) {
+      console.log('dentro de if');
+    } else {
+      console.log('dentro de else');
+    }
+  });
+})
