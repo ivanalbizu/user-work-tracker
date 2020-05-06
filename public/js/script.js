@@ -337,33 +337,54 @@ const pauseTrack = async () => {
 }
 
 //user config
-const saveToLocalstorage = document.getElementById('save-localstorage');
-saveToLocalstorage.addEventListener('click', async () => {
-  const data = {
-    start1: document.getElementById('start1').value,
-    start2: document.getElementById('start2').value,
-    start3: document.getElementById('start3').value,
-    start4: document.getElementById('start4').value,
-    start5: document.getElementById('start5').value,
-    end1: document.getElementById('end1').value,
-    end2: document.getElementById('end2').value,
-    end3: document.getElementById('end3').value,
-    end4: document.getElementById('end4').value,
-    end5: document.getElementById('end5').value
-  };
-  console.log('data :>> ', data);
+const checkEmptyJournalTime = () => {
+  let ok = true;
+  const times = document.querySelectorAll(".js-time");
 
-  const result = await fetchQuery(`${BASE_URL}config`, 'POST', data);
-
-})
-
-document.querySelectorAll(".js-time").forEach(time => {
-  time.addEventListener("input", function(e) {
-    const time = this.value;
-    if (time) {
-      console.log('dentro de if');
-    } else {
-      console.log('dentro de else');
+  for (var i = 0; i < times.length; i++) {
+    if (!times[i].value) {
+      ok = false;
+      break;
     }
-  });
-})
+	}
+  return ok;
+}
+
+const saveJournal = document.getElementById('save-journal');
+if (saveJournal) {
+  saveJournal.addEventListener('click', async () => {
+    if (checkEmptyJournalTime()) {
+      const data = {
+        "1": {
+          "day": "Lunes",
+          "start": document.getElementById('start1').value,
+          "end": document.getElementById('end1').value,
+        },
+        "2": {
+          "day": "Martes",
+          "start": document.getElementById('start2').value,
+          "end": document.getElementById('end2').value,
+        },
+        "3": {
+          "day": "Miércoles",
+          "start": document.getElementById('start3').value,
+          "end": document.getElementById('end3').value,
+        },
+        "4": {
+          "day": "Jueves",
+          "start": document.getElementById('start4').value,
+          "end": document.getElementById('end4').value,
+        },
+        "5": {
+          "day": "Viernes",
+          "start": document.getElementById('start5').value,
+          "end": document.getElementById('end5').value,
+        }
+      };
+    
+      const result = await fetchQuery(`${BASE_URL}config`, 'POST', data);
+    } else {
+      alert('Datos mal rellenos');
+    }
+  })
+}

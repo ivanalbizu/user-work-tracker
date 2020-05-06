@@ -30,10 +30,14 @@ router.post('/', async (req, res) => {
 
   try {
     console.log('req.body :>> ', req.body);
+    const read = await fspromises.readPromise(file);
+    const data = JSON.parse(read);
+    data.config.journal = req.body;
 
-    res.json("data")
+    await fspromises.writePromise(file, JSON.stringify(data, null, 2));
+    res.json(data)
   } catch(error) {
-    console.log('error pause :>> ', error);
+    console.log('error save journal week :>> ', error);
   }
 })
 

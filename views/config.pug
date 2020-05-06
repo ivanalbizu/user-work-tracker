@@ -17,16 +17,31 @@ block content
             main.card__body
               .form-control
                 div TO-DO jornada de verano
+                div TO-DO guardias de fines de semana
               .form-control
-                label.container-input(for='inactividad')
-                  input#inactividad.input(type='checkbox' name='inactividad')
-                  | Recordar tras 60 minutos de descanso
+                label.container-input(for='notificaciones')
+                  input#notificaciones.input(type='checkbox' name='notificaciones')
+                  | Activar notificaciones en las pausas
                   span.checkmark
+              .form-control
+                label.container-input(for='avisar')
+                  input#avisar.input(type='checkbox' name='avisar')
+                  | Avisar a los 30:00 minutos de descanso
+                  span.checkmark
+              .form-control
+                label.container-input(for='recordatorio')
+                  input#recordatorio.input(type='checkbox' name='recordatorio')
+                  | Recordar cada 05:00 minutos
+                  span.checkmark
+          article.card
+            header.card__header
+              h3 Jornada laboral
+            main.card__body
               .form-control
                 div.planning-time
                   div.dia
                   div.comienzo Hora inicio
-                  div.comienzo Hora fin
+                  div.fin Hora fin
                 each val, key in data.config.journal
                   div.planning-time
                     div.dia= val.day
@@ -34,4 +49,10 @@ block content
                       input.js-time(type='time' name=`start${key}` id=`start${key}` value=val.start required)
                     div.fin
                       input.js-time(type='time' name=`end${key}` id=`end${key}` value=val.end required)
-              button#save-localstorage.btn.btn--see(type='button') Guardar
+              button#save-journal.btn.btn--see(type='button') Guardar
+          article.card
+            header.card__header
+              h3 Descarga de tracking en CSV
+            main.card__body
+              .form-control
+                div TO-DO Select para meses
