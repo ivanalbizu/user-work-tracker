@@ -18,6 +18,11 @@ block content
               .form-control
                 div TO-DO jornada de verano
                 div TO-DO guardias de fines de semana
+                div
+                  button#clearInterval(type='button') Limpiar Interval
+                .container
+                  button(onclick='notify()')
+                    | Push Notification!
               .form-control
                 label.container-input(for='notificaciones')
                   input#notificaciones.input(type='checkbox' name='notificaciones')

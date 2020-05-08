@@ -217,6 +217,7 @@ const fetchQuery = async (url, method, data) => {
 const startDayBtn = document.getElementById('start-day');
 const playBtn = document.getElementById('play');
 const pauseBtn = document.getElementById('pause');
+const stopBtn = document.getElementById('stop');
 const dateTrack = document.querySelectorAll('.date-track');
 
 
@@ -282,6 +283,7 @@ const updateBtnTrackDOM = async () => {
   startDayBtn.removeEventListener('click', startTrack);
   playBtn.removeEventListener('click', playTrack);
   pauseBtn.removeEventListener('click', pauseTrack);
+  //stopBtn.removeEventListener('click', stopTrack);
 
   if(!date) {
     startDayBtn.style.display = 'flex';
@@ -290,13 +292,16 @@ const updateBtnTrackDOM = async () => {
   } else {
     playBtn.style.display = 'flex';
     pauseBtn.style.display = 'flex';
+    //stopBtn.style.display = 'flex';
     const item = data.tracking[getDate(today)][date.length-1].time_end;
     if(item) {
       playBtn.classList.remove('btn--disable');
       playBtn.addEventListener('click', playTrack);
     } else {
       pauseBtn.classList.remove('btn--disable');
+      //stopBtn.classList.remove('btn--disable');
       pauseBtn.addEventListener('click', pauseTrack);
+      //stopBtn.addEventListener('click', stopTrack);
     }
   }
 }
@@ -324,6 +329,7 @@ const playTrack = async () => {
   updateDayTracker();
   await fetchQuery(`${BASE_URL}user/play`, 'POST', data);
   updateBtnTrackDOM();
+  window.clearInterval(timeInterval);
 }
 const pauseTrack = async () => {
   const data = {
@@ -334,6 +340,10 @@ const pauseTrack = async () => {
   updateDayTracker();
   await fetchQuery(`${BASE_URL}user/pause`, 'POST', data);
   updateBtnTrackDOM();
+  notify(8000);
+}
+const stopTrack = async () => {
+  console.log('Finish date');
 }
 
 //user config
@@ -387,4 +397,34 @@ if (saveJournal) {
       alert('Datos mal rellenos');
     }
   })
+}
+
+let timeInterval;
+
+const clearInterval = document.getElementById('clearInterval');
+if (clearInterval) {
+  clearInterval.addEventListener('click', () => {
+    console.log('timeInterval :>> ', timeInterval);
+    window.clearInterval(timeInterval);
+  })
+}
+function notify(interval) {
+
+  if (!Notification) {
+    alert("Este navegador no soporta las notificaciones del sistema");
+    return;
+  }
+
+  if (Notification.permission !== "granted") Notification.requestPermission();
+
+  const title = 'Simple Title';
+  const options = {
+    icon: 'https://via.placeholder.com/512x512',
+    body: 'Simple piece of body text.\nSecond line of body text :)'
+  };
+
+  timeInterval = window.setInterval(() => {
+    const notification = new Notification(title, options);
+  }, interval);
+
 }
