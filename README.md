@@ -23,6 +23,8 @@ Actualmente, para agregar nuevo usuario se requiere dos operaciones
 
 
 # TO-DO
+- [ ] Descarga del tracking en formato CSV
+- [ ] Usar la configuración tiempos de jornada laboral para representar las estadísticas
 
 Posibles mejoras    
 - [ ] Notificaciones con socket.io o push notifications desde Node
@@ -30,3 +32,5 @@ Posibles mejoras
 - [ ] Usuarios con privilegios para poder ver tracking de resto de usuarios
 - [ ] Mostrar suma horas trabajadas/descansos
 - [ ] Diagramas de horas trabajados tipo gráficos
+- [ ] Jornadas de verano
+- [ ] Guardias
