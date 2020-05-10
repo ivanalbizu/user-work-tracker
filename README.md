@@ -5,6 +5,11 @@ NodeJS 14.0.0
 Base de datos Mongo
 
 
+# Base de datos Mongo
+
+Establecer conexión en el fichero <code>./config/config.env</code>
+
+
 # Generación de nuevos usuarios
 
 Actualmente, para agregar nuevo usuario se requiere dos operaciones
@@ -20,4 +25,8 @@ Actualmente, para agregar nuevo usuario se requiere dos operaciones
 # TO-DO
 
 Posibles mejoras    
-- [ ] Grabar en la Base de datos Mongo los datos mínimos de usuario que se encuentran en <code>./data/user-template.json</code>
+- [ ] Notificaciones con socket.io o push notifications desde Node
+- [ ] Detectar cierre del navegador y grabar el Tracking actual
+- [ ] Usuarios con privilegios para poder ver tracking de resto de usuarios
+- [ ] Mostrar suma horas trabajadas/descansos
+- [ ] Diagramas de horas trabajados tipo gráficos
