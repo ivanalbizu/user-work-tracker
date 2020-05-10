@@ -3,6 +3,7 @@ extends base
 block content
   .wrapper
     - var page = 'user'
+    - var date = (new Date()).toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
     include includes/header.pug
     include includes/aside.pug
 
@@ -10,34 +11,30 @@ block content
       section
         h2.title-section= data.name
         div#wrapper-btns.wrapper-btns
-          button.btn.btn--track#start-day(type='button')
+          button.btn.btn--track#start-day
             svg(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' fill='none' stroke='#212121' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
               polygon(points='5 3 19 12 5 21 5 3')
-          button.btn.btn--track#play(type='button')
+          button.btn.btn--track#play
             svg(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' fill='none' stroke='#212121' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
               polygon(points='5 3 19 12 5 21 5 3')
-          button.btn.btn--track#pause(type='button')
+          button.btn.btn--track#pause
             svg(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' fill='none' stroke='#212121' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
               rect(x='6' y='4' width='4' height='16')
               rect(x='14' y='4' width='4' height='16')
-          button.btn.btn--track#stop(type='button')
+          button.btn.btn--track#stop
             svg(xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewbox='0 0 24 24' fill='none' stroke='#212121' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round')
               rect(x='3' y='3' width='18' height='18' rx='2' ry='2')
 
 
       section.details
-        //
-          p= data.id
-          p= data.username
-          p= data.email
-        - var date = (new Date()).toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
-        each val, key in data.tracking
-          if(key == date)
-            ul(data-date=key).date
-              li.date-bar
-                span.date-bar-title= key
-                ul.date-track
-                  each item in val
-                    li(data-type=item.type data-start=item.time_start data-end=item.time_end)
-                      span.time-start= item.time_start 
-                      span.time-end= item.time_end
+        ul#current-work-day.current-work-day(data-date=date)
+          if data.tracking[date]
+            each value in data.tracking[date]
+              li(data-type=value.type)
+                if(value.type == 'work')
+                  div.state Trabajo
+                else
+                  div.state Descanso
+                span.time-start= value.time_start
+                span  - 
+                span.time-end= `${value.time_end == undefined ? 'En curso' : value.time_end}`

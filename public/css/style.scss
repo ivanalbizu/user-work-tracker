@@ -97,6 +97,7 @@ input, button {
     margin-right: 5px;
     padding: 4px;
     svg {
+      pointer-events: none;
       stroke: var(--color-orange);
     }
   }
@@ -116,7 +117,17 @@ input, button {
     }
   }
   &--disable {
-    cursor: not-allowed;
+    pointer-events: none;
+    position: relative;
+    &::after {
+      content: "";
+      background-color: rgba(0,0,0,.1);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
     svg {
       stroke: #242424;
     }
@@ -527,4 +538,23 @@ summary {
     font-weight: 400;
     margin-bottom: 30px;
   }
+}
+
+.current-work-day {
+  [data-type] {
+    margin-bottom: 20px;
+    border-left: 3px solid;
+    padding-left: 15px;
+  }
+  [data-type="work"] {
+    border-color: var(--color-orange);
+  }
+  [data-type="break"] {
+    border-color: var(--color-blue-dark);
+  }
+
+}
+
+.pointer-events-none {
+  pointer-events: none;
 }
