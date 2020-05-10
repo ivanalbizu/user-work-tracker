@@ -176,7 +176,7 @@ const updateDayTracker = (target, data, date) => {
     } else {
       pauseBtn.classList.add('btn--disable');
     }
-    time_end.innerHTML = time_start;
+    time_end.innerHTML = getTime(new Date());
   }
 
   if (typeLiteral) {
