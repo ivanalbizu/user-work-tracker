@@ -122,5 +122,24 @@ router.post('/pause', async (req, res) => {
   }
 })
 
+router.post('/stop', async (req, res) => {
+  const email = req.cookies.userEmail;
+  const today = req.body.date;
+  const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;
+  
+  try {
+    const read = await fspromises.readPromise(file);
+    const data = await JSON.parse(read);
+    const date = data.tracking[req.body.date];
+
+    data.tracking[req.body.date][date.length-1]["time_end"] = req.body.time;
+    await fspromises.writePromise(file, JSON.stringify(data, null, 2));
+
+    res.json(data)
+  } catch(error) {
+    console.log('error stop :>> ', error);
+  }
+})
+
 
 module.exports = router;

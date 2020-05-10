@@ -99,20 +99,12 @@ const setAttributes = (el, attrs) => {
   for(let key in attrs) {
     el.setAttribute(key, attrs[key]);
   }
-};
+}
 
 const timeToMinutes = time => {
   const a = time.split(':');
   return (+a[0]) * 60 + (+a[1]);
 }
-
-const BASE_URL = 'http://localhost:8080/';
-const today = new Date();
-const getDate = today => today.toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
-const getTime = today => today.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-
-console.log((new Date()).getDay());
-const totalDayTime = timeToMinutes('17:30') - timeToMinutes('08:00');
 
 const fetchQuery = async (url, method, data) => {
   let config = {};
@@ -133,6 +125,15 @@ const fetchQuery = async (url, method, data) => {
     console.log(error);
   }
 }
+
+const getDate = today => today.toLocaleDateString([], {day: '2-digit', month: '2-digit', year: 'numeric'});
+const getTime = today => today.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+const BASE_URL = 'http://localhost:8080/';
+
+console.log((new Date()).getDay());
+const totalDayTime = timeToMinutes('17:30') - timeToMinutes('08:00');
+
 // Not re-send form on refresh page
 if (window.history.replaceState) window.history.replaceState(null, null, window.location.href);
 
@@ -152,6 +153,8 @@ const updateDayTracker = (target, data, date) => {
 
   const time_start = data.tracking[date][data.tracking[date].length-1].time_start;
   const ulToday = document.getElementById('current-work-day');
+  const lastChild = ulToday.querySelector('[data-type]:last-child');
+  const time_end = lastChild.querySelector('.time-end');
   const li = document.createElement('li');
   let typeLiteral;
   li.innerHTML = '';
@@ -161,21 +164,30 @@ const updateDayTracker = (target, data, date) => {
     li.setAttribute('data-type', 'work');
   } else if (target == 'pause') {
     typeLiteral = 'Descanso';
-    ulToday.querySelector('[data-type]:last-child .time-end').innerHTML = time_start;
+    time_end.innerHTML = time_start;
     li.setAttribute('data-type', 'break');
   } else if (target == 'play') {
     typeLiteral = 'Trabajo';
-    ulToday.querySelector('[data-type]:last-child .time-end').innerHTML = time_start;
+    time_end.innerHTML = time_start;
     li.setAttribute('data-type', 'work');
+  } else if (target == 'stop') {
+    if (lastChild.getAttribute('data-type') == 'work') {
+      playBtn.classList.add('btn--disable');
+    } else {
+      pauseBtn.classList.add('btn--disable');
+    }
+    time_end.innerHTML = time_start;
   }
 
-  li.innerHTML = `
-    <div class="state">${typeLiteral}</div>
-    <span class="time-start">${time_start}</span>
-    <span> - </span>
-    <span class="time-end">En curso</span>
-  `;
-  ulToday.appendChild(li);
+  if (typeLiteral) {
+    li.innerHTML = `
+      <div class="state">${typeLiteral}</div>
+      <span class="time-start">${time_start}</span>
+      <span> - </span>
+      <span class="time-end">En curso</span>
+    `;
+    ulToday.appendChild(li);
+  }
 }
 
 const startTrack = async () => {
@@ -217,6 +229,15 @@ const pauseTrack = async () => {
 }
 const stopTrack = async () => {
   console.log('Finish date');
+  const btnID = event.target.id;
+  const now = new Date();
+  const data = {
+    date: getDate(now),
+    time: getTime(now)
+  };
+
+  const result = await fetchQuery(`${BASE_URL}user/stop`, 'POST', data);
+  updateDayTracker(btnID, result, data.date);
 }
 
 if (document.getElementById('user')) {
@@ -224,6 +245,7 @@ if (document.getElementById('user')) {
   const lastTrack = ulToday.querySelector('li:last-child');
   playBtn.addEventListener('mousedown', playTrack.bind(this), false);
   pauseBtn.addEventListener('mousedown', pauseTrack.bind(this), false);
+  stopBtn.addEventListener('mousedown', stopTrack.bind(this), false);
   if (lastTrack) {
     document.getElementById('start-day').style.display = 'none';
     const type = lastTrack.getAttribute('data-type');
