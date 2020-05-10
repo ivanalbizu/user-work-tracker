@@ -27,14 +27,18 @@ router.post('/', async (req, res) => {
   const email = req.cookies.userEmail;
   const today = getDate(new Date);
   const file = `./data/${email}/${today.split('/')[2]}-${today.split('/')[1]}.json`;
+  const fileUserTemplate = `./data/${email}/user-template.json`;
 
   try {
-    console.log('req.body :>> ', req.body);
     const read = await fspromises.readPromise(file);
+    const readUserTemplate = await fspromises.readPromise(fileUserTemplate);
     const data = JSON.parse(read);
+    const dataUserTemplate = JSON.parse(readUserTemplate);
     data.config.journal = req.body;
+    dataUserTemplate.config.journal = req.body;
 
     await fspromises.writePromise(file, JSON.stringify(data, null, 2));
+    await fspromises.writePromise(fileUserTemplate, JSON.stringify(dataUserTemplate, null, 2));
     res.json(data)
   } catch(error) {
     console.log('error save journal week :>> ', error);

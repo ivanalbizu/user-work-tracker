@@ -8,27 +8,31 @@
     "USER"
   ],
   "config": {
-    "key": "value",
     "journal": {
-      "L": {
+      "1": {
+        "day": "Lunes",
         "start": "08:00",
         "end": "17:30"
       },
-      "M": {
+      "2": {
+        "day": "Martes",
         "start": "08:00",
         "end": "17:30"
       },
-      "X": {
+      "3": {
+        "day": "Miércoles",
         "start": "08:00",
         "end": "17:30"
       },
-      "J": {
+      "4": {
+        "day": "Jueves",
         "start": "08:00",
         "end": "17:30"
       },
-      "V": {
-        "start": "08:00",
-        "end": "17:30"
+      "5": {
+        "day": "Viernes",
+        "start": "09:00",
+        "end": "15:00"
       }
     }
   },
