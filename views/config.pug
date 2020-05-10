@@ -16,28 +16,31 @@ block content
               h3 Alertas
             main.card__body
               .form-control
+                div TO-DO Notificaciones por tiempos de inactividad durante las pausas. Y recordatorios
                 div TO-DO jornada de verano
                 div TO-DO guardias de fines de semana
-                div
-                  button#clearInterval(type='button') Limpiar Interval
-                .container
-                  button(onclick='notify()')
-                    | Push Notification!
-              .form-control
-                label.container-input(for='notificaciones')
-                  input#notificaciones.input(type='checkbox' name='notificaciones')
-                  | Activar notificaciones en las pausas
-                  span.checkmark
-              .form-control
-                label.container-input(for='avisar')
-                  input#avisar.input(type='checkbox' name='avisar')
-                  | Avisar a los 30:00 minutos de descanso
-                  span.checkmark
-              .form-control
-                label.container-input(for='recordatorio')
-                  input#recordatorio.input(type='checkbox' name='recordatorio')
-                  | Recordar cada 05:00 minutos
-                  span.checkmark
+                //
+                  div
+                    button#clearInterval(type='button') Limpiar Interval
+                  .container
+                    button(onclick='notify()')
+                      | Push Notification!
+              //
+                .form-control
+                  label.container-input(for='notificaciones')
+                    input#notificaciones.input(type='checkbox' name='notificaciones')
+                    | Activar notificaciones en las pausas
+                    span.checkmark
+                .form-control
+                  label.container-input(for='avisar')
+                    input#avisar.input(type='checkbox' name='avisar')
+                    | Avisar a los 30:00 minutos de descanso
+                    span.checkmark
+                .form-control
+                  label.container-input(for='recordatorio')
+                    input#recordatorio.input(type='checkbox' name='recordatorio')
+                    | Recordar cada 05:00 minutos
+                    span.checkmark
           article.card
             header.card__header
               h3 Jornada laboral

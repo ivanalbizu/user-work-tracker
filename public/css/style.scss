@@ -544,7 +544,8 @@ summary {
   [data-type] {
     margin-bottom: 20px;
     border-left: 3px solid;
-    padding-left: 15px;
+    background-color: #fff;
+    padding: 5px 15px;
   }
   [data-type="work"] {
     border-color: var(--color-orange);

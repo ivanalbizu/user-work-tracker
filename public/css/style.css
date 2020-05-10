@@ -613,7 +613,8 @@ summary:hover {
 .current-work-day [data-type] {
   margin-bottom: 20px;
   border-left: 3px solid;
-  padding-left: 15px;
+  background-color: #fff;
+  padding: 5px 15px;
 }
 
 .current-work-day [data-type="work"] {
