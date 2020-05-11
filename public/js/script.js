@@ -446,3 +446,16 @@ function notify(interval) {
   }, interval);
 
 }
+
+//if windows close Update Time End of current state to now
+window.addEventListener('beforeunload', async () => {
+  //event.preventDefault();
+  //event.returnValue = '';
+  const now = new Date();
+  const data = {
+    date: getDate(now),
+    time: getTime(now)
+  };
+
+  await fetchQuery(`${BASE_URL}user/close`, 'POST', data);
+});
