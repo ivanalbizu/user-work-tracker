@@ -154,7 +154,7 @@ const updateDayTracker = (target, data, date) => {
   const time_start = data.tracking[date][data.tracking[date].length-1].time_start;
   const ulToday = document.getElementById('current-work-day');
   const lastChild = ulToday.querySelector('[data-type]:last-child');
-  const time_end = lastChild.querySelector('.time-end');
+  const time_end = lastChild?.querySelector('.time-end');
   const li = document.createElement('li');
   let typeLiteral;
   li.innerHTML = '';
@@ -416,6 +416,19 @@ const updateStatsDOM = data => {
 }
 
 
+/////////
+// Config
+const btnDownloadCSV = document.getElementById('download-tracking');
+if (btnDownloadCSV) {
+  btnDownloadCSV.addEventListener('click', async () => {
+    const data = {
+      date: getDate(new Date())
+    };
+    const result = await fetchQuery(`${BASE_URL}config/download`, 'POST', data);
+    console.log('result :>> ', result);
+  })
+}
+
 
 let timeInterval;
 
@@ -447,8 +460,10 @@ function notify(interval) {
 
 }
 
+
 //if windows close Update Time End of current state to now
-window.addEventListener('beforeunload', async () => {
+/*
+window.addEventListener('onbeforeunload', async () => {
   //event.preventDefault();
   //event.returnValue = '';
   const now = new Date();
@@ -457,5 +472,6 @@ window.addEventListener('beforeunload', async () => {
     time: getTime(now)
   };
 
-  await fetchQuery(`${BASE_URL}user/close`, 'POST', data);
+  return await fetchQuery(`${BASE_URL}user/close`, 'POST', data);
 });
+*/
