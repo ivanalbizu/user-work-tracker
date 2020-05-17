@@ -50,7 +50,7 @@ const login = async (req, res) => {
 		const token = jwt.sign({ user }, jwtKey, tokenOptions)
 
 		res.cookie('token', token, cookieOptions)
-		res.cookie('userEmail', 'ivan.albizu@gmail.com', cookieOptions)
+		res.cookie('userEmail', user, cookieOptions)
 
 		res.redirect('/')
 

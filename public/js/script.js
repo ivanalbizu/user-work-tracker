@@ -460,18 +460,14 @@ function notify(interval) {
 
 }
 
+const socket = io(BASE_URL);
 
-//if windows close Update Time End of current state to now
-/*
-window.addEventListener('onbeforeunload', async () => {
-  //event.preventDefault();
-  //event.returnValue = '';
-  const now = new Date();
-  const data = {
-    date: getDate(now),
-    time: getTime(now)
-  };
-
-  return await fetchQuery(`${BASE_URL}user/close`, 'POST', data);
+socket.on('connect', () => {
+  console.log('Client connected...');
+  //socket.emit('iam', { mail:"ivan.albizu@gmail.com" });
+  /*
+  socket.on('hey', notificationString => {
+    console.log('notificationString :>> ', notificationString);
+  });
+  */
 });
-*/

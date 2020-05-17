@@ -33,6 +33,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.11",
     "morgan": "^1.10.0",
-    "pug": "^2.0.4"
+    "pug": "^2.0.4",
+    "socket.io": "^2.3.0"
   }
 }
